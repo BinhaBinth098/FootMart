@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .class1{
+    margin:auto;
+    border: 1px solid white;
+    padding:20px;
+    justify-content:space-around;
+    align-items:center;}
+
+    .btn{
+    padding:10px 25px;
+    background:transparent;
+    border:1px solid gray;
+    border-radius:20px;
+    outline:none;
+    cursor:pointer;
+
+    }
+    .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+
+
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<div class="class1 ">
+<!--    <marquee direction="left" scrollamount="30">-->
+    <img src="{{category.image.url}}" height="750px" width="100%" style="border-radius:30px;">
+<!--    <img src="{{category.image.url}}" height="750px" width="100%" style="border-radius:30px;">-->
+<!--    </marquee>-->
+</div>
+
+<div class="class1">
+    <h1 class="text-center mt-0 text-secondary" style="font-family: EamesBold;"><b>{{category.name}}</b></h1>
+</div>
+<div class="class1">
+<!--    <marquee direction="left" scrollamount="20">-->
+    <p style="font-family: EamesBold;">{{category.description}}</p>
+<!--    </marquee>-->
+</div>
+
+<section id="latest-blog" class="py-5" style="background-image: url('{% static 'images/background-pattern.jpg' %}');background-repeat: no-repeat;background-size:cover;">
+    <div class="container-fluid">
+        <div class="row">
+        {% for i in product %}
+              <div class="col-md-3">
+                <article class="post-item card border-1 shadow p-3 "  style="width:350px;border-radius:30px;">
+                  <div class="image-holder zoom-effect center" style="width:300px;">
+                    <a href="{% url 'shop:product_details' i.id %}">
+                      <img src="{{i.image.url}}" alt="post" class="card-img-top" height="250px">
+                    </a>
+                  </div>
+                  <div class="card-body text-center" >
+                    <div class="post-header">
+                      <h3 class="post-title" style="font-family: EamesBold;">{{i.name}}
+                      </h3>
+                        <p><i class="fa-solid fa-indian-rupee-sign" ></i>{{i.price}}</p>
+                        <a href="{% url 'shop:product_details' i.id %}" class="btn btn-outline-secondary " style="font-family: EamesBold;">
+                            Details</a>
+                    </div>
+                  </div>
+                </article>
+              </div>
+        {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

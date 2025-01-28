@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .btn{
+    padding:10px 25px;
+    background:transparent;
+    border:1px solid gray;
+    border-radius:20px;
+    outline:none;
+    cursor:pointer;
+    }
+        .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+</style>
+<section id="latest-blog" class="py-5" style="background-image: url('{% static 'images/background-pattern.jpg' %}');background-repeat: no-repeat;background-size:cover;">
+
+    {% if product == None %}
+    <form></form>
+    {% else %}
+<h2 class="text-center my-2"  style="font-family: EamesBold;">You have searched for {{query}}</h2>
+    <div class="container-fluid ">
+        <div class="row">
+        {% for i in product %}
+              <div class="col-md-3" >
+                <article class="post-item card border-1 shadow p-3 my-1" style="width:350px;border-radius:30px;">
+                  <div class="image-holder zoom-effect center" style="width:300px;">
+                    <a href="#">
+                      <img src="{{i.image.url}}" alt="post" class="card-img-top" height="250px">
+                    </a>
+                  </div>
+                  <div class="card-body text-center">
+                    <div class="post-header"  style="font-family: EamesBold;">
+                      <h3 class="post-title" style="font-family: EamesBold;">{{i.name}}
+                      </h3>
+                        <p><i class="fa-solid fa-indian-rupee-sign"></i>{{i.price}}</p>
+                        <a href="{% url 'shop:product_details' i.id %}" class="btn btn-outline-secondary ">Details</a>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            {% empty %}
+                     <h2 class="text-center my-2"  style="font-family: EamesBold;">No results found</h2>
+        {% endfor %}
+        </div>
+    </div>
+
+    {% endif %}
+</section>
+{% endblock %}
